@@ -41,6 +41,8 @@ while True:
     if not ret:
         break
 
+    image = cv2.flip(frame, 1)
+
     image = preprocessImage(frame)
     prediction = predict(image)
     label = getLabel(prediction)
