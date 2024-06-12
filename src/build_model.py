@@ -1,5 +1,5 @@
 from keras.api.models import Sequential
-from keras.api.layers import Input, Dense, Conv2D, MaxPooling2D, Flatten
+from keras.api.layers import Input, Dense, Conv2D, MaxPooling2D, Flatten, Dropout
 from keras.api.models import load_model
 
 import os
@@ -26,6 +26,7 @@ def _build_model():
             Conv2D(64, (3, 3), activation='relu'),
             Flatten(),
             Dense(64, activation='relu'),
+            Dropout(0.2),
             Dense(27, activation='softmax')
         ])
 
