@@ -4,11 +4,18 @@ import cv2
 
 from keras.api.models import load_model, Sequential
 
-from load_data import DOWNSCALED_IMAGE_SIZE
+from load_data import DOWNSCALED_IMAGE_SIZE, getData
 from build_model import MODEL_PATH
 
 
 model: Sequential = load_model(MODEL_PATH)
+
+
+def getClassLabels():
+    return getData()[2]
+
+
+classLabels = getClassLabels()
 
 
 def preprocessImage(image):
@@ -22,9 +29,8 @@ def predict(image):
     return model.predict(image)
 
 
-# TODO: Get Actual Class Labels
 def getLabel(prediction):
-    return chr(ord('A') + tf.argmax(prediction[0]).numpy())
+    return classLabels[prediction.argmax()]
 
 
 cap = cv2.VideoCapture(0)

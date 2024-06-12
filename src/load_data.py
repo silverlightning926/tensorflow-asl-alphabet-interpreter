@@ -39,6 +39,9 @@ def _loadData():
         image_size=RAW_IMAGE_SIZE,
         label_mode='categorical',
         batch_size=BATCH_SIZE,
+        class_names=['A', 'B', 'Blank', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+                     'U', 'V', 'W', 'X', 'Y', 'Z']
     )
 
     test_data = image_dataset_from_directory(
@@ -48,7 +51,7 @@ def _loadData():
         batch_size=BATCH_SIZE
     )
 
-    return train_data, test_data
+    return train_data, test_data, train_data.class_names
 
 
 def _preprocessImage(image_data, label_data):
@@ -83,8 +86,8 @@ def _cacheData(train_data: tf.data.Dataset, test_data: tf.data.Dataset):
 def getData():
     _fetchData()
 
-    train_data, test_data = _loadData()
+    train_data, test_data, class_names = _loadData()
     train_data, test_data = _preprocessDataset(train_data, test_data)
     train_data, test_data = _cacheData(train_data, test_data)
 
-    return train_data, test_data
+    return train_data, test_data, class_names
