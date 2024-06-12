@@ -5,7 +5,7 @@ from build_model import MODEL_PATH
 
 
 def main():
-    train_data, test_data = getData()
+    train_data, test_data, _ = getData()
 
     model = build_model()
 
