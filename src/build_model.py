@@ -4,12 +4,14 @@ from keras.api.models import load_model
 
 import os
 
+from main import MODEL_PATH
+
 
 def _build_model():
 
-    if os.path.exists('model.keras'):
+    if os.path.exists(MODEL_PATH):
         print('Model already exists. Loading model.')
-        model = load_model('model.keras')
+        model = load_model(MODEL_PATH)
 
     else:
 

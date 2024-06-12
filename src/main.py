@@ -1,6 +1,8 @@
 from load_data import getData
 from build_model import build_model
 
+MODEL_PATH = 'model.keras'
+
 
 def main():
     train_data, test_data = getData()
@@ -11,7 +13,7 @@ def main():
 
     model.evaluate(test_data)
 
-    model.save('model.h5')
+    model.save(MODEL_PATH)
 
 
 if __name__ == "__main__":
