@@ -51,7 +51,7 @@ def _loadData():
 
 
 def _normalizeImage(image_data, label_data):
-    tf.cast(image_data, tf.float32) / 255.0
+    image_data = tf.cast(image_data, tf.float32) / 255.0
     return image_data, label_data
 
 
