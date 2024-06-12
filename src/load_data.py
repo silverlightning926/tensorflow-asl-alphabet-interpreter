@@ -57,6 +57,13 @@ def _loadData():
 def _preprocessImage(image_data, label_data):
     image_data = tf.image.resize(image_data, DOWNSCALED_IMAGE_SIZE)
     image_data = tf.cast(image_data, tf.float32) / 255.0
+
+    noise = tf.random.normal(tf.shape(image_data), mean=0.0, stddev=0.05)
+    image_data = tf.clip_by_value(image_data + noise, 0.0, 1.0)
+
+    image_data = tf.image.random_brightness(image_data, max_delta=0.05)
+    image_data = tf.image.random_hue(image_data, max_delta=0.05)
+
     return image_data, label_data
 
 
