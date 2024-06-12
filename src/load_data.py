@@ -51,26 +51,20 @@ def _loadData():
     return train_data, test_data
 
 
-def _resizeImage(image_data, label_data):
-    tf.image.resize(image_data, DOWNSCALED_IMAGE_SIZE)
-    return image_data, label_data
-
-
-def _normalizeImage(image_data, label_data):
+def _preprocessImage(image_data, label_data):
+    image_data = tf.image.resize(image_data, DOWNSCALED_IMAGE_SIZE)
     image_data = tf.cast(image_data, tf.float32) / 255.0
     return image_data, label_data
 
 
-def _normalizeData(train_data: tf.data.Dataset, test_data: tf.data.Dataset):
+def _preprocessDataset(train_data: tf.data.Dataset, test_data: tf.data.Dataset):
     train_data = train_data.map(
-        _normalizeImage,
-        _resizeImage,
+        _preprocessImage,
         num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
 
     test_data = test_data.map(
-        _normalizeImage,
-        _resizeImage,
+        _preprocessImage,
         num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
 
@@ -90,7 +84,7 @@ def getData():
     _fetchData()
 
     train_data, test_data = _loadData()
-    train_data, test_data = _normalizeData(train_data, test_data)
+    train_data, test_data = _preprocessDataset(train_data, test_data)
     train_data, test_data = _cacheData(train_data, test_data)
 
     return train_data, test_data
