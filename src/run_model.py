@@ -42,7 +42,7 @@ while True:
     cv2.putText(frame, label, (50, 50), cv2.FONT_HERSHEY_SIMPLEX,
                 1, (0, 255, 0), 2, cv2.LINE_AA)
 
-    cv2.imshow('ASL Alphabet Recognition', image)
+    cv2.imshow('ASL Alphabet Recognition', frame)
 
     if (cv2.waitKey(1) & 0xFF == ord('q')) or cv2.getWindowProperty('ASL Alphabet Recognition', cv2.WND_PROP_VISIBLE) < 1:
         break
