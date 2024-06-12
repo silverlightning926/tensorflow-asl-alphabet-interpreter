@@ -9,7 +9,7 @@ TRAIN_DATA_PATH = './data/Train_Alphabet/'
 TEST_DATA_PATH = './data/Test_Alphabet/'
 
 RAW_IMAGE_SIZE = (512, 512)
-DOWNSCALED_IMAGE_SIZE = (256, 256)
+DOWNSCALED_IMAGE_SIZE = (126, 126)
 BATCH_SIZE = 32
 
 api = KaggleApi()

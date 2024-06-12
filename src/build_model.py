@@ -4,6 +4,8 @@ from keras.api.models import load_model
 
 import os
 
+from load_data import DOWNSCALED_IMAGE_SIZE
+
 MODEL_PATH = 'model.keras'
 
 
@@ -16,7 +18,7 @@ def _build_model():
     else:
 
         model = Sequential([
-            Input(shape=(256, 256, 3)),
+            Input(shape=(*DOWNSCALED_IMAGE_SIZE, 3)),
             Conv2D(32, (3, 3), activation='relu'),
             MaxPooling2D((2, 2)),
             Conv2D(64, (3, 3), activation='relu'),
