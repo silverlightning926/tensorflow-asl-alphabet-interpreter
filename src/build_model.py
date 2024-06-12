@@ -4,7 +4,7 @@ from keras.api.models import load_model
 
 import os
 
-from main import MODEL_PATH
+MODEL_PATH = 'model.keras'
 
 
 def _build_model():
@@ -16,7 +16,7 @@ def _build_model():
     else:
 
         model = Sequential([
-            Input(shape=(512, 512, 3)),
+            Input(shape=(256, 256, 3)),
             Conv2D(32, (3, 3), activation='relu'),
             MaxPooling2D((2, 2)),
             Conv2D(64, (3, 3), activation='relu'),

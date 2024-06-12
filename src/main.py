@@ -1,7 +1,7 @@
 from load_data import getData
 from build_model import build_model
 
-MODEL_PATH = 'model.keras'
+from build_model import MODEL_PATH
 
 
 def main():
