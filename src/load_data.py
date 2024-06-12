@@ -8,7 +8,8 @@ from keras.api.utils import image_dataset_from_directory
 TRAIN_DATA_PATH = './data/Train_Alphabet/'
 TEST_DATA_PATH = './data/Test_Alphabet/'
 
-IMAGE_SIZE = (512, 512)
+RAW_IMAGE_SIZE = (512, 512)
+DOWNSCALED_IMAGE_SIZE = (256, 256)
 BATCH_SIZE = 32
 
 api = KaggleApi()
@@ -35,19 +36,24 @@ def _fetchData():
 def _loadData():
     train_data = image_dataset_from_directory(
         TRAIN_DATA_PATH,
-        image_size=IMAGE_SIZE,
+        image_size=RAW_IMAGE_SIZE,
         label_mode='categorical',
         batch_size=BATCH_SIZE,
     )
 
     test_data = image_dataset_from_directory(
         TEST_DATA_PATH,
-        image_size=IMAGE_SIZE,
+        image_size=RAW_IMAGE_SIZE,
         label_mode='categorical',
         batch_size=BATCH_SIZE
     )
 
     return train_data, test_data
+
+
+def _resizeImage(image_data, label_data):
+    tf.image.resize(image_data, DOWNSCALED_IMAGE_SIZE)
+    return image_data, label_data
 
 
 def _normalizeImage(image_data, label_data):
@@ -58,11 +64,13 @@ def _normalizeImage(image_data, label_data):
 def _normalizeData(train_data: tf.data.Dataset, test_data: tf.data.Dataset):
     train_data = train_data.map(
         _normalizeImage,
+        _resizeImage,
         num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
 
     test_data = test_data.map(
         _normalizeImage,
+        _resizeImage,
         num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
 
